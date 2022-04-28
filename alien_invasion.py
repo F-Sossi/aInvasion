@@ -25,6 +25,13 @@ class AlienInvasion:
             self._update_screen()
             self.bullets.update()
 
+            # clear bullets from sprite group when they hit the top of the screen
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:
+                    self.bullets.remove(bullet)
+            # Test for bullets comment out in prod
+            # print(len(self.bullets)) 
+
 
     def _check_events(self):
         """ watch for keyboard events """
