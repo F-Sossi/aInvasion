@@ -23,14 +23,21 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_screen()
-            self.bullets.update()
+            self._update_bullets()
 
-            # clear bullets from sprite group when they hit the top of the screen
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:
-                    self.bullets.remove(bullet)
-            # Test for bullets comment out in prod
-            # print(len(self.bullets)) 
+
+
+
+    def _update_bullets(self):
+        """Update the position of bullets and clear old bullets"""
+        self.bullets.update()
+
+        # clear bullets from sprite group when they hit the top of the screen
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        # Test for bullets comment out in prod
+        # print(len(self.bullets)) 
 
 
     def _check_events(self):
@@ -70,8 +77,9 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         """add new bullet to the sprite group bullets"""
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
 
 if __name__ == '__main__':
     # make game instance and run the game
