@@ -26,8 +26,13 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self._update_screen()
             self._update_bullets()
+            self._update_aliens()
+            self._update_screen()
+
+    def _update_aliens(self):
+        """Updates the postions of the fleet"""
+        self.aliens.update()
     
     def _create_fleet(self):
         """Create a fleet of aliens"""
@@ -36,7 +41,7 @@ class AlienInvasion:
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien_width = alien.rect.width
-        available_space_x = self.settings.screen_width - (2*alien_width)
+        available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
 
         # determine the number of rows that will fit on the screen
